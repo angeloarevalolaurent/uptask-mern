@@ -15,9 +15,6 @@ router.post('/',
 )
 
 
-
-
-
 router.get('/',ProjectController.getAllProjects)
 
 export default router
