@@ -46,6 +46,7 @@ router.delete('/:id',
 
 
 /**Routes fro tasks*/
+// crear una tarea y asociarla a un proyecto
 router.post('/:projectId/tasks', 
    validateProjectExists,
    body('name').notEmpty().withMessage('El nombre de la tarea es obligatorio'),
@@ -55,12 +56,19 @@ router.post('/:projectId/tasks',
 )
 
 
-
+// traer todas las tareas de un proyecto
 router.get('/:projectId/tasks',
    validateProjectExists,
    TaskController.getProjectTasks
 )
 
+
+// traer una tarea por su id
+router.get('/:projectId/tasks/:taskId',
+   validateProjectExists,
+   handleValidationErrors,
+   TaskController.getTaskById
+)
 
 
 
