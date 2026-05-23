@@ -25,4 +25,16 @@ export class TaskController {
             
         }
     }
+
+
+    static async getProjectTasks(req: Request, res: Response) {
+        try {
+            const taks = await Task.find({ project: req.project._id })
+            res.json(taks)      
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Error fetching tasks" })
+        }
+
+    }
 }
