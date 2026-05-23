@@ -2,6 +2,7 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import { ProjectController } from "../controllers/ProjectController";
 import { TaskController } from "../controllers/TaskController";
+import { validateProjectExists } from "../middleware/project";
 import { handleValidationErrors } from "../middleware/validation";
 
 const router = Router()
@@ -46,7 +47,8 @@ router.delete('/:id',
 
 /**Routes fro tasks*/
 router.post('/:projectId/tasks',
-   TaskController.createProject
+   validateProjectExists,
+   TaskController.createTask
 )
 
 
