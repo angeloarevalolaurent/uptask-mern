@@ -29,7 +29,7 @@ export class TaskController {
 
     static async getProjectTasks(req: Request, res: Response) {
         try {
-            const taks = await Task.find({ project: req.project._id })
+            const taks = await  Task.find({ project: req.project._id }).populate('project')
             res.json(taks)      
         } catch (error) {
             console.error(error);
