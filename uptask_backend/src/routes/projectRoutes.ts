@@ -71,7 +71,14 @@ router.get('/:projectId/tasks/:taskId',
    TaskController.getTaskById
 )
 
-
+// actualizar una tarea por su id
+router.put('/:projectId/tasks/:taskId',
+   param('taskId').isMongoId().withMessage('ID de tarea no válido'),
+   body('name').notEmpty().withMessage('El nombre de la tarea es obligatorio'),
+   body('description').notEmpty().withMessage('La descripción de la tarea es obligatoria'),
+   handleValidationErrors,
+   TaskController.updateTask
+)
 
 
 

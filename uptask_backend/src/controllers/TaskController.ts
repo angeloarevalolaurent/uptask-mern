@@ -63,8 +63,27 @@ export class TaskController {
     }
 
 
+    // actualizar una tarea por su id
+    static async updateTask(req: Request, res: Response) {
+       
+        try {
+            const { taskId } = req.params
+            const task = await Task.findByIdAndUpdate(taskId, req.body)
 
+            if (!task) {
+                return res.status(404).json({ message: "Task not found" })
+            }
 
+            if (task.project._id.toString() !== req.project._id.toString()) {
+                return res.status(400).json({ message: "Task does not belong to the specified project" })
+            }
+            
+            res.send('  Task updated successfully')
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Error fetching task" })
+        }
+    }
 
 
 }
