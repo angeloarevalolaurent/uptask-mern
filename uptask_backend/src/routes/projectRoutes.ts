@@ -80,6 +80,11 @@ router.put('/:projectId/tasks/:taskId',
    TaskController.updateTask
 )
 
-
+// eliminar una tarea por su id
+router.delete('/:projectId/tasks/:taskId',
+   param('taskId').isMongoId().withMessage('ID de tarea no válido'),
+   handleValidationErrors,
+   TaskController.deleteTask
+)
 
 export default router
