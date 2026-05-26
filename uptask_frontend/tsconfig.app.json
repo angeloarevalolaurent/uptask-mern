@@ -6,6 +6,13 @@
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,
+    "paths": {
+      "@/components/*": ["./src/components/*"],
+      "@/views/*": ["./src/views/*"],
+      "@/router/*": ["./src/router/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/layouts/*": ["./src/layouts/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
