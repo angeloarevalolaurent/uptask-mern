@@ -24,3 +24,13 @@ export async function taskExists(req: Request, res: Response, next: NextFunction
         return res.status(500).json({ message: "Internal server error" })
     }
 }
+
+
+
+export function taskBelongsToProject(req: Request, res: Response, next: NextFunction) {
+     if (req.task.project._id.toString() !== req.project._id.toString()) {
+         return res.status(400).json({ message: "Task does not belong to the specified project" })
+    }
+
+    next()
+}

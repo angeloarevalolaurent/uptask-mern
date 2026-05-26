@@ -5,6 +5,7 @@ import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
 import { handleValidationErrors } from "../middleware/validation";
 import { taskExists } from "../middleware/task";
+import { taskBelongsToProject } from "../middleware/task";
 
 const router = Router()
 
@@ -66,6 +67,10 @@ router.get('/:projectId/tasks',
 
 // Middleware para validar que la tarea existe antes de manejar las rutas que requieren un taskId
 router.param('taskId', taskExists)
+router.param('taskId', taskBelongsToProject)
+
+
+
 
 // traer una tarea por su id
 router.get('/:projectId/tasks/:taskId',
