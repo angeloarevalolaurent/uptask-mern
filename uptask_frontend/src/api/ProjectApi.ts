@@ -5,7 +5,7 @@ export async function createProject(fromData: ProjectFormData) {
     
     try{
         const {data} = await api.post('/projects', fromData)
-        console.log('Project created successfully:', data)
+        return data
     }catch(error){
         console.error('Error creating project:', error)
     }
