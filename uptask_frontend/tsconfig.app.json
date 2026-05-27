@@ -11,7 +11,8 @@
       "@/views/*": ["./src/views/*"],
       "@/router/*": ["./src/router/*"],
       "@/utils/*": ["./src/utils/*"],
-      "@/layouts/*": ["./src/layouts/*"]
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/types/*": ["./src/types/*"]
     },
 
     /* Bundler mode */
