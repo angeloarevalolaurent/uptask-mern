@@ -12,7 +12,9 @@
       "@/router/*": ["./src/router/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/layouts/*": ["./src/layouts/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/types/*": ["./src/types/*"],
+      "@/api/*": ["./src/api/*"],
+      "@/lib/*": ["./src/lib/*"]
     },
 
     /* Bundler mode */
