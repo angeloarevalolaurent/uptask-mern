@@ -1,7 +1,18 @@
 import { Link } from 'react-router-dom'
+import {useQuery} from '@tanstack/react-query'
+import {getProjects} from '@/api/ProjectApi'
 
 export default function DashboardView() {
-  return (
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['projects'],
+    queryFn: getProjects
+  })
+
+  if(isLoading) return 'Cargando proyectos...'
+
+  if(data) return (
+    <>
     <div className="space-y-10">
       
       {/* Header */}
@@ -26,7 +37,10 @@ export default function DashboardView() {
 
       </div>
 
-      {/* Empty State */}
+      {data.length ? ( 
+        <p>Si hay proyectos</p>
+      ) : ( 
+    
       <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-14 shadow-sm">
         <div className="flex flex-col items-center text-center">
           
@@ -48,7 +62,9 @@ export default function DashboardView() {
 
         </div>
       </div>
+    )}
 
     </div>
+  </>
   )
 }
