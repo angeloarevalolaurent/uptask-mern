@@ -1,5 +1,6 @@
 import api from '@/lib/axios'
 import type {ProjectFormData} from '@/types/index'
+import {isAxiosError} from 'axios'
 
 export async function createProject(fromData: ProjectFormData) {
     
@@ -7,6 +8,8 @@ export async function createProject(fromData: ProjectFormData) {
         const {data} = await api.post('/projects', fromData)
         return data
     }catch(error){
-        console.error('Error creating project:', error)
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
     }
 }
