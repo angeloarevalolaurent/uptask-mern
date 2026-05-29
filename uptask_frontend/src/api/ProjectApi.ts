@@ -47,3 +47,12 @@ export async function getProjectById(id: Project["_id"]) {
     }
     
 }
+
+export async function updateProject(project: Project) {
+  const { data: response } = await api.put<Project>(
+    `/projects/${project._id}`,
+    project
+  )
+
+  return response
+}

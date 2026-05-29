@@ -1,9 +1,9 @@
 
 import {useQuery} from '@tanstack/react-query'
 import {getProjects} from '@/api/ProjectApi'
-import ProjectList from './projects/ProjectList'
-import EmptyProjects from './projects/EmptyProjects'
-import DashboardHeader from './projects/DashboardHeader'
+import ProjectList from '../components/projects/dashboard/ProjectList'
+import EmptyProjects from '../components/projects/dashboard/EmptyProjects'
+import DashboardHeader from '../components/projects/dashboard/DashboardHeader'
 
 export default function DashboardView() {
 
