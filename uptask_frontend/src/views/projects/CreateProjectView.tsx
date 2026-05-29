@@ -36,93 +36,321 @@ export default function CreateProjectView() {
   const handleForm =(formData: ProjectFormData) => mutate(formData)
 
   return (
-    <div className="space-y-10">
+   <div className="relative isolate">
 
-      {/* Header */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      {/* Background Blur */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
 
-        <div>
-          <div className="inline-flex items-center rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-sm font-semibold text-purple-700">
-            Gestión de Proyectos
-          </div>
+        <div
+          className="
+            absolute left-[-120px] top-10
+            h-72 w-72 rounded-full
+            bg-fuchsia-300/20 blur-3xl
+          "
+        />
 
-          <h1 className="mt-4 text-4xl font-black tracking-tight text-gray-900 lg:text-5xl">
-            Crear Proyecto
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-gray-500 lg:text-xl">
-            Completa la información necesaria para crear un nuevo proyecto
-            y comenzar a organizar tareas, clientes y objetivos.
-          </p>
-        </div>
-
-        <Link
-          to="/"
-          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-300 bg-white px-6 py-4 text-base font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md"
-        >
-          <span className="text-lg">←</span>
-          Volver a Proyectos
-        </Link>
+        <div
+          className="
+            absolute right-[-120px] top-40
+            h-80 w-80 rounded-full
+            bg-indigo-300/20 blur-3xl
+          "
+        />
 
       </div>
 
-      {/* Form Card */}
-      <div className="mx-auto max-w-4xl">
+      <div className="space-y-12">
 
-        <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl shadow-gray-200/50">
+        {/* ================= HEADER ================= */}
+        <div
+          className="
+            relative overflow-hidden rounded-[36px]
+            border border-white/40
+            bg-white/80
+            p-8 shadow-[0_20px_70px_rgba(0,0,0,0.06)]
+            backdrop-blur-2xl
+            lg:p-12
+          "
+        >
 
-          {/* Top Gradient */}
-          <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600" />
+          {/* Glow */}
+          <div
+            className="
+              absolute inset-0
+              bg-gradient-to-br
+              from-fuchsia-100/40
+              via-white
+              to-indigo-100/40
+            "
+          />
 
-          <div className="p-8 lg:p-12">
+          {/* Decorative */}
+          <div
+            className="
+              absolute -right-16 -top-16
+              h-52 w-52 rounded-full
+              bg-fuchsia-400/10 blur-3xl
+            "
+          />
 
-            {/* Form Heading */}
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900">
-                Información del Proyecto
-              </h2>
+          <div
+            className="
+              absolute -bottom-20 left-0
+              h-56 w-56 rounded-full
+              bg-indigo-400/10 blur-3xl
+            "
+          />
 
-              <p className="mt-2 text-gray-500">
-                Ingresa los datos principales para registrar tu proyecto.
+          <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+
+            {/* Left */}
+            <div className="max-w-3xl">
+
+              <div
+                className="
+                  inline-flex items-center gap-2
+                  rounded-full border border-fuchsia-200
+                  bg-white/80
+                  px-5 py-2
+                  text-sm font-bold
+                  tracking-wide text-fuchsia-700
+                  shadow-sm
+                  backdrop-blur-xl
+                "
+              >
+                Gestión Inteligente de Proyectos
+              </div>
+
+              <h1
+                className="
+                  mt-6 text-5xl font-black
+                  tracking-tight text-gray-900
+                  lg:text-5xl
+                "
+              >
+                Crea proyectos con una experiencia moderna
+              </h1>
+
+              <p
+                className="
+                  mt-6 max-w-2xl
+                  text-lg leading-relaxed text-gray-600
+                  lg:text-xl
+                "
+              >
+                Organiza ideas, clientes y objetivos en un espacio visual,
+                elegante y preparado para equipos modernos.
               </p>
+
             </div>
 
-            {/* Form */}
-            <form
-              onSubmit={handleSubmit(handleForm)}
-              className="space-y-8"
-              noValidate
-            >
+            {/* Right */}
+            <div className="flex flex-col gap-4 sm:flex-row">
 
-              <ProjectForm
-                register={register}
-                errors={errors}
-              />
+              <Link
+                to="/"
+                className="
+                  inline-flex items-center justify-center gap-3
+                  rounded-2xl border border-white/60
+                  bg-white/90 px-7 py-4
+                  font-semibold text-gray-700
+                  shadow-lg shadow-gray-200/40
+                  backdrop-blur-xl
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:border-gray-300
+                  hover:shadow-xl
+                "
+              >
+                <span className="text-lg">←</span>
+                Volver
+              </Link>
 
-              {/* Actions */}
-              <div className="flex flex-col-reverse gap-4 pt-6 sm:flex-row sm:justify-end">
+            </div>
 
-                <Link
-                  to="/"
-                  className="inline-flex items-center justify-center rounded-2xl border border-gray-300 px-6 py-4 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-50"
+
+
+          </div>
+
+
+                  {/* ================= FORM CONTAINER ================= */}
+        <div className="mx-auto max-w-5xl px-6 py-10 lg:px-8 lg:py-14">
+
+          <div
+            className="
+              relative overflow-hidden rounded-[40px]
+              border border-white/40
+              bg-white/85
+              shadow-[0_25px_80px_rgba(0,0,0,0.08)]
+              backdrop-blur-2xl
+            "
+          >
+
+            {/* Top Gradient */}
+            <div
+              className="
+                absolute inset-x-0 top-0 h-1.5
+                bg-gradient-to-r
+                from-fuchsia-600
+                via-purple-600
+                to-indigo-600
+              "
+            />
+
+            {/* Glow */}
+            <div
+              className="
+                absolute right-0 top-0
+                h-72 w-72 rounded-full
+                bg-fuchsia-400/10 blur-3xl
+              "
+            />
+
+            <div
+              className="
+                absolute bottom-0 left-0
+                h-72 w-72 rounded-full
+                bg-indigo-400/10 blur-3xl
+              "
+            />
+
+            <div className="relative z-10 p-8 lg:p-14">
+
+              {/* Form Header */}
+              <div className="mb-12">
+
+                <div className="flex items-center gap-4">
+
+                  <div
+                    className="
+                      h-[1px] w-14
+                      bg-gradient-to-r
+                      from-fuchsia-500
+                      to-purple-500
+                    "
+                  />
+
+                  <span
+                    className="
+                      text-sm font-black uppercase
+                      tracking-[0.25em] text-fuchsia-600
+                    "
+                  >
+                    Nuevo Proyecto
+                  </span>
+
+                </div>
+
+                <h2
+                  className="
+                    mt-5 text-3xl font-black
+                    tracking-tight text-gray-900
+                    lg:text-4xl
+                  "
                 >
-                  Cancelar
-                </Link>
+                  Información Principal
+                </h2>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-fuchsia-600 to-purple-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-fuchsia-500/20 transition-all duration-200 hover:scale-[1.01] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
+                <p
+                  className="
+                    mt-4 max-w-2xl
+                    text-lg leading-relaxed text-gray-500
+                  "
                 >
-                  {isSubmitting ? 'Creando Proyecto...' : 'Crear Proyecto'}
-                </button>
+                  Completa los datos necesarios para comenzar a gestionar
+                  tu proyecto de manera profesional.
+                </p>
 
               </div>
 
-            </form>
+              {/* ================= FORM ================= */}
+              <form
+                onSubmit={handleSubmit(handleForm)}
+                className="space-y-10"
+                noValidate
+              >
+
+                <ProjectForm
+                  register={register}
+                  errors={errors}
+                />
+
+                {/* Actions */}
+                <div
+                  className="
+                    flex flex-col-reverse gap-4
+                    border-t border-gray-100 pt-8
+                    sm:flex-row sm:justify-end
+                  "
+                >
+
+                  <Link
+                    to="/"
+                    className="
+                      inline-flex items-center justify-center
+                      rounded-2xl border border-gray-200
+                      bg-white px-7 py-4
+                      font-semibold text-gray-700
+                      shadow-sm
+                      transition-all duration-300
+                      hover:border-gray-300
+                      hover:bg-gray-50
+                    "
+                  >
+                    Cancelar
+                  </Link>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="
+                      group relative overflow-hidden
+                      rounded-2xl
+                      bg-gradient-to-r
+                      from-fuchsia-600
+                      via-purple-600
+                      to-indigo-600
+                      px-9 py-4
+                      text-lg font-bold text-white
+                      shadow-[0_15px_40px_rgba(168,85,247,0.35)]
+                      transition-all duration-300
+                      hover:-translate-y-1
+                      hover:shadow-[0_20px_50px_rgba(168,85,247,0.45)]
+                      disabled:cursor-not-allowed
+                      disabled:opacity-70
+                    "
+                  >
+
+                    <span
+                      className="
+                        absolute inset-0
+                        bg-white/10 opacity-0
+                        transition-opacity duration-300
+                        group-hover:opacity-100
+                      "
+                    />
+
+                    <span className="relative z-10">
+                      {isSubmitting
+                        ? 'Creando Proyecto...'
+                        : 'Crear Proyecto'}
+                    </span>
+
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
 
           </div>
+
         </div>
+        </div>
+
+
+
       </div>
 
     </div>

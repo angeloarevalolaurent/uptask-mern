@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+
 import {useQuery} from '@tanstack/react-query'
 import {getProjects} from '@/api/ProjectApi'
+import ProjectList from './projects/ProjectList'
+import EmptyProjects from './projects/EmptyProjects'
+import DashboardHeader from './projects/DashboardHeader'
 
 export default function DashboardView() {
 
@@ -13,55 +16,23 @@ export default function DashboardView() {
 
   if(data) return (
     <>
-    <div className="space-y-10">
+    <div className="relative overflow-hidden rounded-[36px]
+        border border-white/40
+        bg-white/70
+        backdrop-blur-2xl
+        px-8 py-10 lg:px-12
+        shadow-[0_20px_80px_rgba(0,0,0,0.08)] space-y-10"> 
       
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        
-        <div>
-          <h1 className="text-4xl lg:text-5xl font-black text-gray-900">
-            Mis Proyectos
-          </h1>
-
-          <p className="text-lg lg:text-2xl text-gray-500 mt-3">
-            Administra y da seguimiento a todos tus proyectos
-          </p>
-        </div>
-
-        <Link
-          to="/projects/create"
-          className="inline-flex items-center justify-center rounded-xl bg-purple-600 px-8 py-4 text-lg font-bold text-white shadow-md transition-all duration-200 hover:bg-purple-700 hover:scale-[1.02]"
-        >
-          + Nuevo Proyecto
-        </Link>
-
-      </div>
+      
+      <DashboardHeader projectCount={data.length} />
 
       {data.length ? ( 
-        <p>Si hay proyectos</p>
+        <ProjectList data={data} />
       ) : ( 
-    
-      <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-14 shadow-sm">
-        <div className="flex flex-col items-center text-center">
-          
-          <h2 className="text-2xl font-bold text-gray-800">
-            Aún no tienes proyectos
-          </h2>
+        
+        <EmptyProjects />
+        
 
-          <p className="mt-3 max-w-md text-gray-500">
-            Comienza creando tu primer proyecto y organiza tus tareas,
-            equipos y objetivos de manera eficiente.
-          </p>
-
-          <Link
-            to="/projects/create"
-            className="mt-8 rounded-xl bg-gray-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-black"
-          >
-            Crear Proyecto
-          </Link>
-
-        </div>
-      </div>
     )}
 
     </div>
