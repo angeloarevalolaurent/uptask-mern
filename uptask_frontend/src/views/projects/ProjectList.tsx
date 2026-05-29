@@ -173,7 +173,7 @@ export default function ProjectList({ data }: ProjectListProps) {
 
                   <Menu.Item>
                     <Link
-                      to=""
+                      to={`/projects/${project._id}/edit`}
                       className="
                         flex items-center rounded-xl px-4 py-3
                         text-sm font-semibold text-gray-700
