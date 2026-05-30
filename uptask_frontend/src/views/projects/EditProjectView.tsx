@@ -49,13 +49,13 @@ export default function EditProjectView() {
   // 4. MUTATION
   const { mutate } = useMutation({
     mutationFn: updateProject,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["projects"] })
       queryClient.invalidateQueries({ queryKey: ["editProject", projectId] })
-      toast.success("Proyecto actualizado correctamente")
+      toast.success(data)
       navigate("/")
     },
-    onError: (error: any) => {
+    onError: (error) => {
       toast.error(error.message)
     }
   })

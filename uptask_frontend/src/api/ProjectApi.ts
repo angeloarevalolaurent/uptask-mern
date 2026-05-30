@@ -49,14 +49,22 @@ export async function getProjectById(id: Project["_id"]) {
 }
 
 export async function updateProject(project: Project) {
-  const { data: response } = await api.put<Project>(
-    `/projects/${project._id}`,
-    project
-  )
+  try {
+    const { data } = await api.put<string>(
+      `/projects/${project._id}`,
+      project
+    )
 
-  return response
+    return data
+
+  } catch (error) {
+
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error)
+    }
+
+  }
 }
-
 export async function deleteProject(id: Project["_id"]) {
   try {
     const { data } = await api.delete<string>(`/projects/${id}`)
