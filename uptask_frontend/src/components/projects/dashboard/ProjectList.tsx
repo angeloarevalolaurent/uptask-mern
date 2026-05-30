@@ -6,9 +6,10 @@ import type { Project } from '@/types/index'
 
 interface ProjectListProps {
     data: Project[]
+    mutate: (id: Project["_id"]) => void
 }
 
-export default function ProjectList({ data }: ProjectListProps) {
+export default function ProjectList({ data, mutate }: ProjectListProps) {
 
   return (
     <>
@@ -194,6 +195,7 @@ export default function ProjectList({ data }: ProjectListProps) {
                                 text-red-600 transition-all duration-200
                                 hover:bg-red-50
                               "
+                              onClick={() => mutate(project._id)}
                             >
                               Eliminar Proyecto
                             </button>

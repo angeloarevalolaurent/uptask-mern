@@ -1,15 +1,33 @@
-
-import {useQuery} from '@tanstack/react-query'
+import { toast } from "react-toastify"
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import {getProjects} from '@/api/ProjectApi'
 import ProjectList from '../components/projects/dashboard/ProjectList'
 import EmptyProjects from '../components/projects/dashboard/EmptyProjects'
 import DashboardHeader from '../components/projects/dashboard/DashboardHeader'
+import { deleteProject } from "@/api/ProjectApi"
+
 
 export default function DashboardView() {
 
   const {data, isLoading} = useQuery({
     queryKey: ['projects'],
     queryFn: getProjects
+  })
+
+
+  const queryClient = useQueryClient()
+
+  const {mutate} = useMutation({
+    mutationFn: deleteProject,
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSuccess: (data) => {
+
+      toast.success(data)
+      queryClient.invalidateQueries({queryKey: ['projects']})
+      
+    }
   })
 
   if(isLoading) return 'Cargando proyectos...'
@@ -27,7 +45,7 @@ export default function DashboardView() {
       <DashboardHeader projectCount={data.length} />
 
       {data.length ? ( 
-        <ProjectList data={data} />
+        <ProjectList data={data} mutate={mutate} />
       ) : ( 
         
         <EmptyProjects />
