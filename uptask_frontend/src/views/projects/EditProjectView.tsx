@@ -17,7 +17,7 @@ export default function EditProjectView() {
 
   // 1. QUERY
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["project", projectId],
+    queryKey: ["editProject", projectId],
     queryFn: () => getProjectById(projectId!),
     enabled: !!projectId
   })
