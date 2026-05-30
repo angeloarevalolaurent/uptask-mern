@@ -26,7 +26,7 @@ export default function DashboardView() {
 
       toast.success(data)
       queryClient.invalidateQueries({queryKey: ['projects']})
-      
+
     }
   })
 
@@ -42,10 +42,13 @@ export default function DashboardView() {
         shadow-[0_20px_80px_rgba(0,0,0,0.08)] space-y-10"> 
       
       
-      <DashboardHeader projectCount={data.length} />
+      
 
       {data.length ? ( 
+        <>
+        <DashboardHeader projectCount={data.length} />
         <ProjectList data={data} mutate={mutate} />
+        </>
       ) : ( 
         
         <EmptyProjects />
