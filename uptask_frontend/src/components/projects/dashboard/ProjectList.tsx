@@ -95,7 +95,7 @@ export default function ProjectList({ data, mutate }: ProjectListProps) {
 
                       {/* Title */}
                       <Link
-                        to=""
+                        to={`/projects/${project._id}`}
                         className="
                           block text-2xl font-black tracking-tight
                           text-gray-900 transition-colors
@@ -160,7 +160,7 @@ export default function ProjectList({ data, mutate }: ProjectListProps) {
 
                           <Menu.Item>
                             <Link
-                              to=""
+                              to={`/projects/${project._id}`}
                               className="
                                 flex items-center rounded-xl px-4 py-3
                                 text-sm font-semibold text-gray-700
