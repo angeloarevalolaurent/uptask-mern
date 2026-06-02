@@ -4,25 +4,54 @@ import {useLocation, useNavigate} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import TaskForm from './TaskForm';
 import type { TaskFormData } from '@/types/index';
+import {createTask} from '@/api/TaskAPI'
+import {toast} from 'react-toastify'
+import {useMutation} from '@tanstack/react-query'
+import {useParams} from 'react-router-dom'
 
 export default function AddTaskModal() {
-    const location = useLocation();
+
     const navigate = useNavigate();
 
+    /**
+     * Leer si modal existe en la url, si existe mostrar el modal, si no existe no mostrar el modal
+     */
+    const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const modalTask = queryParams.get('newTask');
     const show = modalTask ? true : false;
 
+    /**Obtener el ID del proyecto */
+    const params = useParams()
+    const projectId = params.projectId!
 
     const initialValues : TaskFormData = {
         name: '',
         description: '',
     }
 
-    const {register, handleSubmit, formState: { errors }} = useForm({ defaultValues: initialValues})
+    const {register, handleSubmit, reset, formState: { errors }} = useForm({ defaultValues: initialValues})
 
-    const handleCreateTask = (fromdata: TaskFormData) => {
-        console.log(fromdata)
+
+    const {mutate} = useMutation({
+        mutationFn: createTask,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+            reset()
+            navigate(location.pathname, { replace: true })
+        }
+    })
+
+
+    const handleCreateTask = (formData: TaskFormData) => {
+        const data = {
+            formData,
+            projectId
+        }
+        mutate(data)
     }
 
     return (

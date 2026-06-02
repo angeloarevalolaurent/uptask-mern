@@ -20,7 +20,7 @@ export class TaskController {
 
             await Promise.allSettled([task.save(), project.save()])
 
-            res.send('Task created successfully')
+            res.send('Tarea creada exitosamente')
         } catch (error) {
             console.error(error);
             
