@@ -212,7 +212,7 @@ export default function ProjectHeader( { data }: { data: ProjectProps } ) {
                     transition-all duration-300
                     hover:-translate-y-1
                 "
-                onClick={() => navigate('?newTask=true')}
+                onClick={() => navigate(location.pathname + '?newTask=true')}
                 >
                 <span className="text-2xl">+</span>
                 Agregar Tarea
