@@ -1,15 +1,19 @@
 import {useNavigate} from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import type { Project } from '@/types/index'
+import type { Project, Task } from '@/types/index'
 import AddTaskModal from '@/components/projects/task/AddTaskModal'
+import TaskList from '@/components/projects/task/TaskList'
+
+
 
 interface ProjectProps {
     _id: Project["_id"]
     projectName: Project["projectName"]
     clientName: Project["clientName"]
     description: Project["description"]
-
+    tasks: Task[]
 }
+
 
 
 export default function ProjectHeader( { data }: { data: ProjectProps } ) {
@@ -333,7 +337,7 @@ export default function ProjectHeader( { data }: { data: ProjectProps } ) {
         </div>
 
         </div>
-
+        <TaskList  tasks={data.tasks}/>
         <AddTaskModal />
     </>
   )
