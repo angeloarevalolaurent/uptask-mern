@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import {useLocation, useNavigate} from 'react-router-dom'
+import {useForm} from 'react-hook-form'
+import TaskForm from './TaskForm';
+import type { TaskFormData } from '@/types/index';
 
 export default function AddTaskModal() {
     const location = useLocation();
@@ -9,6 +12,19 @@ export default function AddTaskModal() {
     const queryParams = new URLSearchParams(location.search);
     const modalTask = queryParams.get('newTask');
     const show = modalTask ? true : false;
+
+
+    const initialValues : TaskFormData = {
+        name: '',
+        description: '',
+    }
+
+    const {register, handleSubmit, formState: { errors }} = useForm({ defaultValues: initialValues})
+
+    const handleCreateTask = (fromdata: TaskFormData) => {
+        console.log(fromdata)
+    }
+
     return (
         <>
             <Transition appear show={show} as={Fragment}>
@@ -47,6 +63,22 @@ export default function AddTaskModal() {
                                     <p className="text-xl font-bold">Llena el formulario y crea  {''}
                                         <span className="text-fuchsia-600">una tarea</span>
                                     </p>
+
+                                    <form 
+                                        className="mt-10 space-y-3"
+                                        noValidate
+                                        onSubmit={handleSubmit(handleCreateTask)}
+                                    >
+
+                                        <TaskForm register={register} errors={errors} />
+
+                                        <input 
+                                            type="submit"
+                                             className=" w-full gap-3 rounded-2xl bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-[0_15px_40px_rgba(168,85,247,0.35)] transition-all duration-300 hover:-translate-y-1 "
+                                            value="Guardar Tarea"
+                                        />
+
+                                    </form>
 
                                 </Dialog.Panel>
                             </Transition.Child>
