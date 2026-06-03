@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction} from "express"
 import Task, {ITask} from "../models/Task"
+import mongoose from "mongoose";
 
 declare global {
     namespace Express {
@@ -11,17 +12,24 @@ declare global {
 
 export async function taskExists(req: Request, res: Response, next: NextFunction) {
    try {
-        const { taskId } = req.params
+        const { taskId } = req.params as { taskId: string }
+
+        if (!mongoose.Types.ObjectId.isValid(taskId)) {
+            return res.status(404).json({
+                error: "Tarea no encontrada"
+            })
+        }
+
         const task = await Task.findById(taskId)
 
         if (!task) {
-            return res.status(404).json({ message: "Task not found" })
+            return res.status(404).json({ error: "Task not found" })
         }
         req.task = task
         next()
     } catch (error) {
-        console.error("Error validating task existence:", error)
-        return res.status(500).json({ message: "Internal server error" })
+        console.error( error)
+        return res.status(500).json({ error: "Internal server error" })
     }
 }
 
