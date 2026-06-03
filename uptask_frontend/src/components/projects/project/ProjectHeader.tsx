@@ -4,7 +4,7 @@ import type { Project, Task } from '@/types/index'
 import AddTaskModal from '@/components/projects/task/AddTaskModal'
 import TaskList from '@/components/projects/task/TaskList'
 import EditTaskData from '@/components/projects/task/EditTaskData'
-
+import TaskModalDetails from '@/components/projects/task/TaskModalDetail'
 
 interface ProjectProps {
     _id: Project["_id"]
@@ -340,6 +340,7 @@ export default function ProjectHeader( { data }: { data: ProjectProps } ) {
         <TaskList  tasks={data.tasks}/>
         <AddTaskModal />
         <EditTaskData/>
+        <TaskModalDetails/>
     </>
   )
 }
