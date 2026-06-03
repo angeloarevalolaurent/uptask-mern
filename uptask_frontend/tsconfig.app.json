@@ -14,7 +14,8 @@
       "@/layouts/*": ["./src/layouts/*"],
       "@/types/*": ["./src/types/*"],
       "@/api/*": ["./src/api/*"],
-      "@/lib/*": ["./src/lib/*"]
+      "@/lib/*": ["./src/lib/*"],
+      "@/locales/*": ["./src/locales/*"]
     },
 
     /* Bundler mode */
