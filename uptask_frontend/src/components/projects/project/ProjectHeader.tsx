@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import type { Project, Task } from '@/types/index'
 import AddTaskModal from '@/components/projects/task/AddTaskModal'
 import TaskList from '@/components/projects/task/TaskList'
-
+import EditTaskData from '@/components/projects/task/EditTaskData'
 
 
 interface ProjectProps {
@@ -339,6 +339,7 @@ export default function ProjectHeader( { data }: { data: ProjectProps } ) {
         </div>
         <TaskList  tasks={data.tasks}/>
         <AddTaskModal />
+        <EditTaskData/>
     </>
   )
 }
