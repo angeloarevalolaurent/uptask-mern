@@ -1,11 +1,13 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
-import {useQuery} from '@tanstack/react-query'
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import { getTaskById } from '@/api/TaskAPI';
 import {toast} from 'react-toastify'
 import {formatDate} from '@/utils/utils'
 import {statusTranslations} from '@/locales/es'
+import { updateStatus } from '@/api/TaskAPI';
+import type { TaskStatus } from '@/types/index';
 
 export default function TaskModalDetails() {
 
@@ -25,6 +27,26 @@ export default function TaskModalDetails() {
         enabled: !!taskId,
         retry: false
     })
+
+    const queryClient = useQueryClient()
+    const {mutate} = useMutation({
+        mutationFn: updateStatus,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+            queryClient.invalidateQueries({ queryKey: ['task', taskId] })
+            queryClient.invalidateQueries({ queryKey: ['project', projectId] })
+        }
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+        const status = e.target.value as TaskStatus
+        const data = {projectId, taskId, status}
+        mutate(data)
+    }
 
     if(isError) {
         toast.error(error.message, {toastId: 'error'})
@@ -72,6 +94,7 @@ export default function TaskModalDetails() {
                                         <select 
                                             className='w-full p-3 bg-white border border-slate-300 rounded-md' 
                                             defaultValue={data.status}
+                                            onChange={handleChange}
                                         >
                                             {Object.entries(statusTranslations).map(([key, value]) => (
                                                 <option key={key} value={key}>{value}</option>

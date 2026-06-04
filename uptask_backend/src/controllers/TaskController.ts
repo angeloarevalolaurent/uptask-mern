@@ -96,10 +96,10 @@ export class TaskController {
             req.task.status = status
             await req.task.save()
 
-            res.send('Task status updated successfully')
+            res.send('Tarea actualizada exitosamente')
         }  catch (error) {
-            console.error(error);
-           
+            console.error(error)
+            return res.status(500).json({ error: 'Error interno del servidor' })
         }
     }
 }
