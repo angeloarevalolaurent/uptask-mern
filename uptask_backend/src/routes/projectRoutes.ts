@@ -3,7 +3,7 @@ import { body, param } from "express-validator";
 import { ProjectController } from "../controllers/ProjectController";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
-import { handleValidationErrors } from "../middleware/validation";
+import { handleInputErrors } from "../middleware/validation";
 import { taskExists } from "../middleware/task";
 import { taskBelongsToProject } from "../middleware/task";
 
@@ -14,7 +14,7 @@ router.post('/',
    body('clientName').notEmpty().withMessage('El nombre del cliente es obligatorio'),
    body('description').notEmpty().withMessage('La descripción del proyecto es obligatoria'),
     
-   handleValidationErrors,
+   handleInputErrors,
    ProjectController.createProjects
 )
 
@@ -23,7 +23,7 @@ router.get('/',ProjectController.getAllProjects)
 
 router.get('/:id',
    param('id').isMongoId().withMessage('ID no válido'),
-   handleValidationErrors,
+   handleInputErrors,
    ProjectController.getProjectById
 )
 
@@ -33,14 +33,14 @@ router.put('/:id',
    body('projectName').notEmpty().withMessage('El nombre del proyecto es obligatorio'),
    body('clientName').notEmpty().withMessage('El nombre del cliente es obligatorio'),
    body('description').notEmpty().withMessage('La descripción del proyecto es obligatoria'),
-   handleValidationErrors,
+   handleInputErrors,
    ProjectController.updateProject
 )
 
 
 router.delete('/:id',
    param('id').isMongoId().withMessage('ID no válido'),
-   handleValidationErrors,
+   handleInputErrors,
    ProjectController.deleteProject
 )
 
@@ -55,7 +55,7 @@ router.param('projectId', validateProjectExists)
 router.post('/:projectId/tasks', 
    body('name').notEmpty().withMessage('El nombre de la tarea es obligatorio'),
    body('description').notEmpty().withMessage('La descripción de la tarea es obligatoria'),
-   handleValidationErrors,
+   handleInputErrors,
    TaskController.createTask
 )
 
@@ -75,7 +75,7 @@ router.param('taskId', taskBelongsToProject)
 // traer una tarea por su id
 router.get('/:projectId/tasks/:taskId',
    param('taskId').isMongoId().withMessage('ID de tarea no válido'),
-   handleValidationErrors,
+   handleInputErrors,
    TaskController.getTaskById
 )
 
@@ -84,14 +84,14 @@ router.put('/:projectId/tasks/:taskId',
    param('taskId').isMongoId().withMessage('ID de tarea no válido'),
    body('name').notEmpty().withMessage('El nombre de la tarea es obligatorio'),
    body('description').notEmpty().withMessage('La descripción de la tarea es obligatoria'),
-   handleValidationErrors,
+   handleInputErrors,
    TaskController.updateTask
 )
 
 // eliminar una tarea por su id
 router.delete('/:projectId/tasks/:taskId',
    param('taskId').isMongoId().withMessage('ID de tarea no válido'),
-   handleValidationErrors,
+   handleInputErrors,
    TaskController.deleteTask
 )
 
@@ -99,7 +99,7 @@ router.delete('/:projectId/tasks/:taskId',
 router.post('/:projectId/tasks/:taskId/status',
    param('taskId').isMongoId().withMessage('ID de tarea no válido'),
    body('status').notEmpty().withMessage('El estado de la tarea es obligatorio'),
-   handleValidationErrors,
+   handleInputErrors,
    TaskController.updateStatus
 )
 export default router
