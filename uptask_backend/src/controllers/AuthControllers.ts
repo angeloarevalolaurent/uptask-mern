@@ -1,6 +1,8 @@
 import type {Request, Response} from 'express';
 import User from '../models/user';
 import { hashPassword } from '../utils/auth';
+import Token from '../models/Token';
+import { generateToken } from '../utils/token';
 
 export class AuthController {
 
@@ -20,7 +22,13 @@ export class AuthController {
             // Hash la contraseña antes de guardarla en la base de datos
             user.password = await hashPassword(password)
             
-            await user.save()
+            // Generando token
+            const token = new Token()
+            token.token = generateToken()
+            token.user = user._id
+
+            
+            await Promise.allSettled([user.save(), token.save()])
             res.status(201).json({ message: 'Cuenta creada exitosamente' });
         } catch (error) {
             res.status(500).json({ error: 'Error al crear la cuenta' });
