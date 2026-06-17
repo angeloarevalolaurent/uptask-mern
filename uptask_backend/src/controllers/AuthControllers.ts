@@ -112,6 +112,42 @@ export class AuthController {
             res.status(500).json({ error: 'Error al crear la cuenta' });
         }
     }
+
+
+    static requestConfirmationCode = async (req: Request, res: Response) => {
+        try{
+            const {email} = req.body
+
+            // Verificar si el email ya está registrado
+            const user = await User.findOne({ email })
+            if(!user){
+                return res.status(404).json({ error: 'El Usuario no esta registrado' });
+            }
+
+            if(user.confirmed){
+                return res.status(403).json({ error: 'El Usuario ya está condifrmado' });
+            }
+            // Generando token
+            const token = new Token()
+            token.token = generateToken()
+            token.user = user._id
+
+            
+            // Enviar al email
+            AuthEmail.sendConfirmationEmail({
+                email: user.email,
+                name: user.name,
+                token: token.token
+            })
+
+
+            await Promise.allSettled([user.save(), token.save()])
+            res.send('Se envió un nuevo token a tu e-mail')
+        } catch (error) {
+            res.status(500).json({ error: 'Error al crear la cuenta' });
+        }
+    }
+    
 }
 
 
