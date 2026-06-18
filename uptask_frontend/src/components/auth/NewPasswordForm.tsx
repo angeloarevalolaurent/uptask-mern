@@ -1,7 +1,8 @@
-import type { NewPasswordForm } from "../../types";
+import type {  NewPasswordForm } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage";
+
 
 
 export default function NewPasswordForm() {

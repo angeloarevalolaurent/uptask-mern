@@ -71,3 +71,18 @@ export async function forgotPassword(formData:ForgotPasswordForm) {
         }
     }
 }
+
+
+
+export async function validateToken(formData:ConfirmToken) {
+    try {
+        const url = '/auth/validate-token'
+        const {data} = await api.post<string>(url, formData)
+        return data
+
+    } catch (error) {
+        if (isAxiosError(error) && error.message) {
+            throw new Error(error.response?.data.error)
+        }
+    }
+}
