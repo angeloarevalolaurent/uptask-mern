@@ -1,5 +1,5 @@
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
-import { data, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import type{ ConfirmToken } from '@/types/index';
 import { validateToken } from '@/api/AuthAPI';
