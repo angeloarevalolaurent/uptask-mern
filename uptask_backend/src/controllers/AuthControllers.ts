@@ -148,6 +148,37 @@ export class AuthController {
         }
     }
     
+
+
+
+    static forgotPassword = async (req: Request, res: Response) => {
+        try{
+            const {email} = req.body
+
+            // Verificar si el email ya está registrado
+            const user = await User.findOne({ email })
+            if(!user){
+                return res.status(404).json({ error: 'El Usuario no esta registrado' });
+            }
+
+            // Generando token
+            const token = new Token()
+            token.token = generateToken()
+            token.user = user._id
+            await token.save()
+            
+            // Enviar al email
+            AuthEmail.sendPasswordResetoken({
+                email: user.email,
+                name: user.name,
+                token: token.token
+            })
+
+            res.send('Revisa tu email para instrucciones')
+        } catch (error) {
+            res.status(500).json({ error: 'Error al crear la cuenta' });
+        }
+    }    
 }
 
 
