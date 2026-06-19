@@ -47,6 +47,11 @@ export class ProjectController {
                 return res.status(404).json({ error: error.message })
             }
 
+            if (project.manager.toString() !== req.user._id.toString()) {
+                const error = new Error('Acción no valida')
+                return res.status(404).json({error: error.message})
+            }
+
             res.json(project)
 
         } catch (error) {
