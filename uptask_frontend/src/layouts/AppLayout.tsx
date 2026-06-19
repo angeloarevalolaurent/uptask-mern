@@ -40,113 +40,114 @@ export default function AppLayout() {
       "
     >
 
-  {/* Gradient Glow */}
-  <div
-    className="
-      absolute inset-0
-      bg-gradient-to-r
-      from-fuchsia-500/10
-      via-transparent
-      to-indigo-500/10
-      pointer-events-none
-    "
-  />
-
-  <div
-    className="
-      relative max-w-screen-2xl
-      mx-auto
-      px-5 py-4
-      flex items-center justify-between
-    "
-  >
-
-    {/* LEFT */}
-    <div className="flex items-center gap-6">
-
-      {/* Logo */}
+      {/* Gradient Glow */}
       <div
         className="
-          w-48 lg:w-56
-          transition-transform duration-300
-          hover:scale-[1.02]
+          absolute inset-0
+          bg-gradient-to-r
+          from-fuchsia-500/10
+          via-transparent
+          to-indigo-500/10
+          pointer-events-none
         "
-      >
-        <Logo />
-      </div>
+      />
 
-      {/* Divider */}
-      <div className="hidden lg:block h-10 w-px bg-white/10" />
-
-      {/* Mini Text */}
-      <div className="hidden lg:flex flex-col">
-
-        <span
-          className="
-            text-sm font-semibold
-            tracking-wide text-white
-          "
-        >
-          Task Management Platform
-        </span>
-
-        <span
-          className="
-            text-xs text-gray-400
-          "
-        >
-          Organiza proyectos de forma inteligente
-        </span>
-
-      </div>
-
-    </div>
-
-    {/* RIGHT */}
-    <div className="flex items-center gap-4">
-
-      {/* Online Indicator */}
       <div
         className="
-          hidden lg:flex items-center gap-2
-          rounded-full
-          border border-emerald-500/20
-          bg-emerald-500/10
-          px-4 py-2
-          text-sm font-medium text-emerald-400
+          relative max-w-screen-2xl
+          mx-auto
+          px-5 py-4
+          flex items-center justify-between
         "
       >
 
-        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+        {/* LEFT */}
+        <div className="flex items-center gap-6">
 
-        Online
+          {/* Logo */}
+          <div
+            className="
+              w-48 lg:w-56
+              transition-transform duration-300
+              hover:scale-[1.02]
+            "
+          >
+            <Logo />
+          </div>
+
+          {/* Divider */}
+          <div className="hidden lg:block h-10 w-px bg-white/10" />
+
+          {/* Mini Text */}
+          <div className="hidden lg:flex flex-col">
+
+            <span
+              className="
+                text-sm font-semibold
+                tracking-wide text-white
+              "
+            >
+              Task Management Platform
+            </span>
+
+            <span
+              className="
+                text-xs text-gray-400
+              "
+            >
+              Organiza proyectos de forma inteligente
+            </span>
+
+          </div>
+
+        </div>
+
+        {/* RIGHT */}
+        <div className="flex items-center gap-4">
+
+          {/* Online Indicator */}
+          <div
+            className="
+              hidden lg:flex items-center gap-2
+              rounded-full
+              border border-emerald-500/20
+              bg-emerald-500/10
+              px-4 py-2
+              text-sm font-medium text-emerald-400
+            "
+          >
+
+            <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+
+            Online
+
+          </div>
+
+          {/* Avatar */}
+          <div
+            className="
+              hidden lg:flex h-11 w-11
+              items-center justify-center
+              rounded-2xl
+              bg-gradient-to-br
+              from-fuchsia-500
+              to-indigo-600
+              text-sm font-black text-white
+              shadow-lg shadow-fuchsia-500/20
+            "
+          >
+            A
+          </div>
+
+          {/* Menu */}
+          <NavMenu name={data.name}/>
+
+        </div>
 
       </div>
 
-      {/* Avatar */}
-      <div
-        className="
-          hidden lg:flex h-11 w-11
-          items-center justify-center
-          rounded-2xl
-          bg-gradient-to-br
-          from-fuchsia-500
-          to-indigo-600
-          text-sm font-black text-white
-          shadow-lg shadow-fuchsia-500/20
-        "
-      >
-        A
-      </div>
-
-      {/* Menu */}
-      <NavMenu />
-
-    </div>
-
-  </div>
-
-</header>
+      
+    </header>
 
       {/* MAIN */}
       <main className="flex-1 max-w-screen-2xl w-full mx-auto px-5 py-10">

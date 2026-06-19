@@ -1,17 +1,17 @@
 import { Fragment } from 'react'
-
 import { Popover, Transition } from '@headlessui/react'
-
-import {
-  Bars3Icon,
-  UserCircleIcon,
-  FolderIcon,
-  ArrowLeftStartOnRectangleIcon
-} from '@heroicons/react/24/outline'
-
+import { Bars3Icon, UserCircleIcon,FolderIcon,ArrowLeftStartOnRectangleIcon} from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import type { User } from '../types'
 
-export default function NavMenu() {
+type NavMenuProps = {
+  name: User['name']
+}
+
+
+
+
+export default function NavMenu({name} : NavMenuProps) {
 
   return (
 
@@ -134,7 +134,7 @@ export default function NavMenu() {
                     tracking-tight text-white
                   "
                 >
-                  Usuario
+                  {name}
                 </h3>
 
               </div>
