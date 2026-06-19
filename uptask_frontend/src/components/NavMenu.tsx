@@ -3,6 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, UserCircleIcon,FolderIcon,ArrowLeftStartOnRectangleIcon} from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import type { User } from '../types'
+import { useQueryClient } from '@tanstack/react-query'
 
 type NavMenuProps = {
   name: User['name']
@@ -12,6 +13,13 @@ type NavMenuProps = {
 
 
 export default function NavMenu({name} : NavMenuProps) {
+
+  const queryClient = useQueryClient()
+  const logout = () => {
+    localStorage.removeItem('AUTH_TOKEN')
+    queryClient.invalidateQueries({queryKey:['user']})
+  }
+
 
   return (
 
@@ -230,7 +238,7 @@ export default function NavMenu({name} : NavMenuProps) {
 
               <button
                 type="button"
-                onClick={() => {}}
+                onClick={logout}
                 className="
                   group flex w-full items-center gap-4
                   rounded-2xl
