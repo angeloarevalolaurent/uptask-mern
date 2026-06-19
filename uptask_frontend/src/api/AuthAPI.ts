@@ -102,3 +102,17 @@ export async function updatePasswordWidhtToken({formData, token}:{formData: NewP
         }
     }
 }
+
+
+export async function getUser() {
+    try {
+       const {data} = await api('/auth/user')
+       console.log(data)
+       
+       return data
+    } catch (error) {
+        if (isAxiosError(error) && error.message) {
+            throw new Error(error.response?.data.error)
+        }
+    }
+}
