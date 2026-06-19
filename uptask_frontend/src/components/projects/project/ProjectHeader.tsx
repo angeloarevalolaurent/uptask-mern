@@ -222,6 +222,19 @@ export default function ProjectHeader( { data }: { data: ProjectProps } ) {
                 Agregar Tarea
                 </button>
 
+                <Link
+                    to={'team'}
+                    className=' group
+                    inline-flex items-center gap-3
+                    rounded-2xl     
+                    bg-fuchsia-600
+                    px-8 py-4
+                    text-lg font-bold text-white
+                    shadow-[0_15px_40px_rgba(168,85,247,0.35)]
+                    transition-all duration-300
+                    hover:-translate-y-1'
+                >Colaboradores  </Link>
+
             </div>
 
             </div>
