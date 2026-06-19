@@ -1,3 +1,4 @@
+
 import {z} from "zod";
 
 /** Auth & Users */
@@ -20,6 +21,15 @@ export type NewPasswordForm  = Pick<Auth, 'password'| 'password_confirmation' >
 export type ConfirmToken = Pick<Auth, 'token'>
 
 
+/**Users */
+export const userSchema = authSchema.pick({
+    name: true,
+    email: true
+}).extend({
+    _id:z.string()
+})
+
+export type User = z.infer<typeof userSchema>
 
 /** Task  */
 export const taskStatusSchema = z.enum(['pending', 'inProgress', 'onHold', 'underReview','completed'])

@@ -16,7 +16,7 @@ export default function AppLayout() {
   
   
 
-  return (
+  if(data )return (
 
     <div
       className="
