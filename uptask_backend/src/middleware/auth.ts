@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from "express"
-import User from "../models/user"
+import User, { IUser } from "../models/user"
 import jwt from "jsonwebtoken"
+
+declare global{
+    namespace Express {
+        interface Request {
+            user?:IUser
+        }
+    }
+}
+
 
 export const authenticate = async (req: Request, res:Response, next: NextFunction)=>{
     const bearer = req.headers.authorization
@@ -17,8 +26,13 @@ export const authenticate = async (req: Request, res:Response, next: NextFunctio
         const decoded = jwt.verify(token, process.env.JWT_SECRET!)
 
         if (typeof decoded === 'object' && decoded.id) {
-            const user = await User.findById(decoded.id)
-            console.log(user);
+            const user = await User.findById(decoded.id).select('_id name email')
+            
+            if (user) {
+                req.user = user
+            } else {
+                 res.status(500).json({error: 'Token No Válido'})
+            }
             
         }
 
