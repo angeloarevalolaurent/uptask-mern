@@ -9,7 +9,6 @@ export class ProjectController {
 
         //Asigna un manager
         project.manager = req.user._id
-
         
         try {
             await project.save()
@@ -22,7 +21,11 @@ export class ProjectController {
     static getAllProjects = async (req: Request, res: Response) => {
         
         try {
-            const projects = await Project.find({})
+            const projects = await Project.find({
+                $or:[
+                    {manager: {$in: req.user._id}}
+                ]
+            })
             res.json(projects)
         } catch (error) {
             res.status(500).json({ error: 'Error al obtener los proyectos' })
