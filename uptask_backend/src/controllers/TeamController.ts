@@ -38,6 +38,13 @@ export class TeamMemberController {
             return res.status(404).json({error: error.message})
          }
  
+         // Evitar agregar al administrador
+        if(req.project.manager.toString() === user._id.toString()) {
+            const error = new Error('El administrador no puede agregarse como colaborador')
+            return res.status(409).json({ error: error.message })
+        }
+
+         // Evitar duplicados
         if (req.project.team.some(team => team.toString() === user.id.toString())) {
             const error = new Error('El usuario ya existe en el proyecto')
             return res.status(409).json({error: error.message})
