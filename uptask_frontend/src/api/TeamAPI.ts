@@ -24,7 +24,7 @@ export async function addUserToProject({projectId, id} : {projectId: Project['_i
 
     try {
         const url =`/projects/${projectId}/team`
-        const {data} = await api.post(url, {id})
+        const {data} = await api.post<string>(url, {id})
         console.log(data);
         return data
 
@@ -36,6 +36,26 @@ export async function addUserToProject({projectId, id} : {projectId: Project['_i
     }
 
 }
+
+
+
+export async function removeUserFromProject({projectId, userId} : {projectId: Project['_id'], userId: TeamMember['_id']}) {
+
+    try {
+        const url =`/projects/${projectId}/team/${userId}`
+        const {data} = await api.delete<string>(url)
+        console.log(data);
+        return data
+
+
+    } catch (error) {
+        if (isAxiosError(error)  && error.response) {
+            throw new Error(error.response.data.error); 
+        }
+    }
+
+}
+
 
 
 export async function getProjectTeam( projectId: Project['_id']) {
@@ -56,3 +76,5 @@ export async function getProjectTeam( projectId: Project['_id']) {
     }
 
 }
+
+
