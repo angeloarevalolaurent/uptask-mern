@@ -5,9 +5,12 @@ import ProjectList from '../components/projects/dashboard/ProjectList'
 import EmptyProjects from '../components/projects/dashboard/EmptyProjects'
 import DashboardHeader from '../components/projects/dashboard/DashboardHeader'
 import { deleteProject } from "@/api/ProjectApi"
+import { useAuth } from "../hooks/useAuth"
 
 
 export default function DashboardView() {
+
+  const {data:user, isLoading:authLoading} = useAuth()
 
   const {data, isLoading} = useQuery({
     queryKey: ['projects'],
@@ -29,9 +32,13 @@ export default function DashboardView() {
     }
   })
 
-  if(isLoading) return 'Cargando proyectos...'
+  console.log(data);
+  console.log(user?._id);
+  
+  
+  if(isLoading && authLoading) return 'Cargando proyectos...'
 
-  if(data) return (
+  if(data && user) return (
     <>
     <div className="relative overflow-hidden rounded-[36px]
         border border-white/40
@@ -46,7 +53,7 @@ export default function DashboardView() {
       {data.length ? ( 
         <>
         <DashboardHeader projectCount={data.length} />
-        <ProjectList data={data} mutate={mutate} />
+        <ProjectList data={data} mutate={mutate} user= {user}/>
         </>
       ) : ( 
         

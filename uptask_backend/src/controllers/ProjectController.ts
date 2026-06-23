@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import Project from "../models/Project";
 
+
 export class ProjectController {
 
     static createProjects = async (req: Request, res: Response) => {
@@ -27,6 +28,7 @@ export class ProjectController {
                     {team:  req.user._id}
                 ]
             })
+            console.log(projects)
             res.json(projects)
         } catch (error) {
             res.status(500).json({ error: 'Error al obtener los proyectos' })

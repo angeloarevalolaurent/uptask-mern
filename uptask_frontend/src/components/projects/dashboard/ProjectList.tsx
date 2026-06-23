@@ -2,14 +2,15 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
-import type { Project } from '@/types/index'
+import type { Project, User } from '@/types/index'
 
 interface ProjectListProps {
     data: Project[]
     mutate: (id: Project["_id"]) => void
+    user:User
 }
 
-export default function ProjectList({ data, mutate }: ProjectListProps) {
+export default function ProjectList({ data, mutate, user }: ProjectListProps) {
 
   return (
     <>
@@ -79,19 +80,21 @@ export default function ProjectList({ data, mutate }: ProjectListProps) {
                     {/* Info */}
                     <div>
 
-                      {/* Badge */}
                       <div
-                        className="
+                        className={`
                           mb-2 inline-flex items-center rounded-full
-                          border border-emerald-200
-                          bg-emerald-50
-                          px-3 py-1
-                          text-xs font-bold uppercase tracking-wider
-                          text-emerald-700
-                        "
+                          px-3 py-1 text-xs font-bold uppercase tracking-wider
+                          ${
+                            project.manager === user._id
+                              ? 'border border-indigo-500 bg-indigo-50 text-indigo-500'
+                              : 'border border-emerald-500 bg-emerald-50 text-emerald-700'
+                          }
+                        `}
                       >
-                        En progreso
+                        {project.manager === user._id ? '👑 Manager' : '👥 Colaborador'}
                       </div>
+
+
 
                       {/* Title */}
                       <Link
@@ -172,6 +175,9 @@ export default function ProjectList({ data, mutate }: ProjectListProps) {
                             </Link>
                           </Menu.Item>
 
+                        {project.manager === user._id && (
+
+                          <>
                           <Menu.Item>
                             <Link
                               to={`/projects/${project._id}/edit`}
@@ -200,6 +206,9 @@ export default function ProjectList({ data, mutate }: ProjectListProps) {
                               Eliminar Proyecto
                             </button>
                           </Menu.Item>
+                          
+                          </>
+                        )}
 
                         </div>
 
