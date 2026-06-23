@@ -3,6 +3,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
 import type { Project, User } from '@/types/index'
+import { isManager } from '@/utils/policies'
 
 interface ProjectListProps {
     data: Project[]
@@ -84,14 +85,13 @@ export default function ProjectList({ data, mutate, user }: ProjectListProps) {
                         className={`
                           mb-2 inline-flex items-center rounded-full
                           px-3 py-1 text-xs font-bold uppercase tracking-wider
-                          ${
-                            project.manager === user._id
+                          ${isManager(project.manager,user._id) 
                               ? 'border border-indigo-500 bg-indigo-50 text-indigo-500'
                               : 'border border-emerald-500 bg-emerald-50 text-emerald-700'
                           }
                         `}
                       >
-                        {project.manager === user._id ? '👑 Manager' : '👥 Colaborador'}
+                        {isManager(project.manager, user._id) ? '👑 Manager' : '👥 Colaborador'}
                       </div>
 
 
@@ -175,7 +175,7 @@ export default function ProjectList({ data, mutate, user }: ProjectListProps) {
                             </Link>
                           </Menu.Item>
 
-                        {project.manager === user._id && (
+                        {isManager(project.manager, user._id ) && (
 
                           <>
                           <Menu.Item>
