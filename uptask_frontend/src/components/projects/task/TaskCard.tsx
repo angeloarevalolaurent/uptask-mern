@@ -11,11 +11,12 @@ import type {Task} from '@/types/index'
 
 type TaskCardProps = {
     task: Task
+    canEdit: boolean
 }
 
 
 
-export default function TaskCard({ task }: TaskCardProps) {
+export default function TaskCard({ task, canEdit }: TaskCardProps) {
     const navigate = useNavigate()
     const params = useParams()
     const location = useLocation()
@@ -41,7 +42,9 @@ export default function TaskCard({ task }: TaskCardProps) {
         <div className="min-w-0 flex flex-col gap-y-4">
             <button 
                 type="button"
-                className="text-xl font-bold text-left text-gray-600">
+                className="text-xl font-bold text-left text-gray-600"
+                onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
+                >
                 {task.name}
             </button>
             <p className="text-slate-600">{task.description}</p>
@@ -68,7 +71,10 @@ export default function TaskCard({ task }: TaskCardProps) {
                                     Ver Tarea
                                 </button>
                             </Menu.Item>
-                            <Menu.Item>
+
+                        {canEdit && (
+                            <>
+                             <Menu.Item>
                                 <button 
                                     type='button' 
                                     className='block px-3 py-1 text-sm leading-6 text-gray-900'
@@ -87,6 +93,12 @@ export default function TaskCard({ task }: TaskCardProps) {
                                     Eliminar Tarea
                                 </button>
                             </Menu.Item>
+                           
+                            </>
+
+                        )}
+
+
                         </Menu.Items>
                     </Transition>
                 </Menu>
