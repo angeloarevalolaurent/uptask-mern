@@ -8,6 +8,7 @@ import {formatDate} from '@/utils/utils'
 import {statusTranslations} from '@/locales/es'
 import { updateStatus } from '@/api/TaskAPI';
 import type { TaskStatus } from '@/types/index';
+import NotesPanel from '@/components/notes/NotesPanel';
 
 export default function TaskModalDetails() {
 
@@ -88,7 +89,13 @@ export default function TaskModalDetails() {
                                     >{data.name}
                                     </Dialog.Title>
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
+                                
 
+                                    {data.completedBy.length ? (
+                                    <>
+                                    <p className="text-2xl text-slate-500 mb-2">
+                                        Historial de Cambios
+                                    </p>
                                     <ul className="list-decimal">
                                          {data.completedBy.map( (activityLog) =>(
                                             <li key={activityLog._id}>
@@ -100,7 +107,9 @@ export default function TaskModalDetails() {
                                         ))}
     
                                     </ul>
-                                  
+                                    </>
+                                    ):null}
+
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>
 
@@ -115,6 +124,9 @@ export default function TaskModalDetails() {
 
                                         </select>
                                     </div>
+                                            
+                                    <NotesPanel/>
+
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
