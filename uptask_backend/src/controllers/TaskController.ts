@@ -44,8 +44,10 @@ export class TaskController {
     static async getTaskById(req: Request, res: Response) {
        
         try {
-            
-            res.json(req.task)
+            const task = await Task.findById(req.task._id)
+                        .populate({path: 'completedBy', select: '_id name email'})
+
+            res.json(task)
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Error fetching task" })
