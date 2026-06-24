@@ -42,3 +42,12 @@ export function taskBelongsToProject(req: Request, res: Response, next: NextFunc
 
     next()
 }
+
+
+export function hasAuthorization(req: Request, res: Response, next: NextFunction) {
+     if (req.user._id.toString() !== req.project.manager.toString()) {
+         return res.status(400).json({ message: "Acción no válida" })
+    }
+
+    next()
+}
