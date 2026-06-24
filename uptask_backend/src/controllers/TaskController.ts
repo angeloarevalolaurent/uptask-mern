@@ -45,7 +45,7 @@ export class TaskController {
        
         try {
             const task = await Task.findById(req.task._id)
-                        .populate({path: 'completedBy', select: '_id name email'})
+                        .populate({path: 'completedBy.user', select: '_id name email'})
 
             res.json(task)
         } catch (error) {
