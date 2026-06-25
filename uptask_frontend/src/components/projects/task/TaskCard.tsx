@@ -44,7 +44,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
 
 
     const style = transform ? {
-
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`
     } : undefined
 
   return (
@@ -54,6 +54,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
             {...listeners}
             {...attributes}
             ref={setNodeRef}
+            style={style}
             className="min-w-0 flex flex-col gap-y-4">
             <button 
                 type="button"
