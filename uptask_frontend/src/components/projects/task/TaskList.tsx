@@ -1,8 +1,12 @@
-import type {Task} from '@/types/index'
+import type {Task, TaskStatus} from '@/types/index'
 import TaskCard from '@/components/projects/task/TaskCard'
 import {statusTranslations} from '@/locales/es'
 import DropTask from './DropTask'
 import {DndContext,type DragEndEvent} from '@dnd-kit/core'
+import {useMutation, useQueryClient } from '@tanstack/react-query'
+import { updateStatus } from '@/api/TaskAPI'
+import { toast } from 'react-toastify'
+import { useParams } from 'react-router-dom'
 
 type TaskListProps = {
     tasks: Task[]
@@ -32,10 +36,25 @@ const statusStyles : { [key: string]: string } = {
     completed: "border-t-emerald-500"
 }
 
-
-
 export default function TaskList({ tasks, canEdit }: TaskListProps) {
     
+    const params = useParams()
+    const projectId= params.projectId!
+
+    const queryClient = useQueryClient()
+    const {mutate} = useMutation({
+        mutationFn: updateStatus,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+            queryClient.invalidateQueries({ queryKey: ['project', projectId] })
+        }
+    })
+
+
+
     const groupedTasks = tasks.reduce((acc, task) => {
     let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
         currentGroup = [...currentGroup, task]
@@ -49,13 +68,12 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
        const { over, active} = e
         
        if (over && over.id) {
-            console.log('valido..');
+            const taskId = active.id.toString()
+            const status = over.id as TaskStatus
             
-       }else
-        console.log('Invalido');
-        
+            mutate({projectId, taskId, status})
+       }
     }
-
   return (
     <>
             <h2 className="text-5xl font-black my-10">Tareas</h2>
@@ -83,4 +101,4 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
             </div>      
     </>
   )
-}
+} 
