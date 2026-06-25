@@ -8,12 +8,11 @@ import { isManager } from '@/utils/policies'
 
 interface ProjectListProps {
     data: Project[]
-    mutate: (id: Project["_id"]) => void
     user:User
 }
 
 
-export default function ProjectList({ data, mutate, user }: ProjectListProps) {
+export default function ProjectList({ data, user }: ProjectListProps) {
 
   const location = useLocation()
   const navigate = useNavigate()
