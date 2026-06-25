@@ -3,9 +3,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import ErrorMessage from '@/components/ErrorMessage';
+import type { CheckPasswordForm } from '@/types/index';
+import { useMutation } from '@tanstack/react-query';
+import { checkPassword } from '@/api/AuthAPI';
+import { toast } from 'react-toastify';
 
 export default function DeleteProjectModal() {
-    const initialValues = {
+    const initialValues : CheckPasswordForm= {
         password: ''
     }
     const location = useLocation()
@@ -17,7 +21,17 @@ export default function DeleteProjectModal() {
 
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
 
-    const handleForm = async (formData) => {}
+    const checkUserPasswordMutation = useMutation({
+        mutationFn: checkPassword,
+        onError: (error) => toast.error(error.message)
+    })
+
+    const handleForm = async (formData: CheckPasswordForm) => {
+        await checkUserPasswordMutation.mutateAsync(formData)
+
+        console.log('Despues de la mutacion');
+        
+    }
 
 
     return (
