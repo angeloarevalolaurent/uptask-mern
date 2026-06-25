@@ -106,7 +106,7 @@ router.put('/profile',
 router.post('/update-password',
     authenticate,
     body('current_password')
-        .isNumeric().withMessage('El password actual no puede ir vacio'),
+        .notEmpty().withMessage('El password actual no puede ir vacio'),
     body('password')
         .isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres'),
     body('password_confirmation')
