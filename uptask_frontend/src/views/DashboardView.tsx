@@ -6,6 +6,7 @@ import EmptyProjects from '../components/projects/dashboard/EmptyProjects'
 import DashboardHeader from '../components/projects/dashboard/DashboardHeader'
 import { deleteProject } from "@/api/ProjectApi"
 import { useAuth } from "../hooks/useAuth"
+import DeleteProjectModal from "@/components/projects/dashboard/DeleteProjectModal"
 
 
 export default function DashboardView() {
@@ -54,15 +55,17 @@ export default function DashboardView() {
         <>
         <DashboardHeader projectCount={data.length} />
         <ProjectList data={data} mutate={mutate} user= {user}/>
+
+   
         </>
       ) : ( 
         
         <EmptyProjects />
-        
-
     )}
 
     </div>
+    
+    <DeleteProjectModal/>
   </>
   )
 }

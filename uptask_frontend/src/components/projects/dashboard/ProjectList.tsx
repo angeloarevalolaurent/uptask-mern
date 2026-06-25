@@ -1,9 +1,10 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { Project, User } from '@/types/index'
 import { isManager } from '@/utils/policies'
+
 
 interface ProjectListProps {
     data: Project[]
@@ -11,7 +12,11 @@ interface ProjectListProps {
     user:User
 }
 
+
 export default function ProjectList({ data, mutate, user }: ProjectListProps) {
+
+  const location = useLocation()
+  const navigate = useNavigate()
 
   return (
     <>
@@ -201,7 +206,7 @@ export default function ProjectList({ data, mutate, user }: ProjectListProps) {
                                 text-red-600 transition-all duration-200
                                 hover:bg-red-50
                               "
-                              onClick={() => mutate(project._id)}
+                              onClick={() => navigate(location.pathname + `?deleteProject=${project._id}`)}
                             >
                               Eliminar Proyecto
                             </button>
