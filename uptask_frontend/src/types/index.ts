@@ -67,9 +67,17 @@ export const taskSchema = z.object({
     updatedAt: z.string(),
 });
 
+export const taskProjectSchema = taskSchema.pick({
+    _id: true,
+    name: true,
+    description: true,
+    status: true
+})
+
+
 export type Task = z.infer<typeof taskSchema>
 export type TaskFormData = Pick<Task, "name" | "description">
-
+export type TaskProject = z.infer<typeof taskProjectSchema>
 
 
 /**Projects */
@@ -79,7 +87,9 @@ export const projectSchema = z.object({
     projectName: z.string(),
     clientName: z.string(),
     description: z.string(),
-    manager: z.string()
+    manager: z.string(),
+    tasks: z.array(taskProjectSchema),
+    team: z.array(z.string())
 })
 
 export const dashboardProjectSchema = z.array(
