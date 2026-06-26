@@ -2,12 +2,12 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import type { Project, User } from '@/types/index'
+import type { DashboardProject, User } from '@/types/index'
 import { isManager } from '@/utils/policies'
 
 
 interface ProjectListProps {
-    data: Project[]
+    data: DashboardProject[]
     user:User
 }
 

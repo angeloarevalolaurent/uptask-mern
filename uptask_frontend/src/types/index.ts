@@ -110,7 +110,7 @@ export const editProjectSchema = projectSchema.pick({
 
 export type Project = z.infer<typeof projectSchema>
 export type ProjectFormData = Pick<Project, "projectName" | "clientName" | "description">
-
+export type DashboardProject = z.infer<typeof dashboardProjectSchema>[number]
 
 
 /**Team */

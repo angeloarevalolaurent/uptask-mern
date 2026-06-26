@@ -1,5 +1,5 @@
 import api from '@/lib/axios'
-import type {Project ,ProjectFormData} from '@/types/index'
+import type { Project ,ProjectFormData} from '@/types/index'
 import {dashboardProjectSchema, editProjectSchema, projectSchema} from '@/types/index'
 import {isAxiosError} from 'axios'
 
@@ -70,25 +70,22 @@ export async function getFullProject(id: Project["_id"]) {
     
 }
 
-
-
-export async function updateProject(project: Project) {
-  try {
-    const { data } = await api.put<string>(
-      `/projects/${project._id}`,
-      project
-    )
-
-    return data
-
-  } catch (error) {
-
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error)
-    }
-
-  }
+type ProjectAPIType = {
+    formData: ProjectFormData
+    projectId: Project['_id']
 }
+
+export async function updateProject({formData, projectId} : ProjectAPIType ) {
+    try {
+        const { data } = await api.put<string>(`/projects/${projectId}`, formData)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
 export async function deleteProject(id: Project["_id"]) {
   try {
     const { data } = await api.delete<string>(`/projects/${id}`)

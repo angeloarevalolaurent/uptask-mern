@@ -61,10 +61,11 @@ export default function EditProjectView() {
   })
 
   const onSubmit = (formData: ProjectFormData) => {
-    mutate({
-      _id: projectId!,
-      ...formData
-    })
+    const data = {
+      formData,
+      projectId: projectId!
+    }
+    mutate(data)
   }
 
   if (isLoading) return "Cargando proyecto..."
