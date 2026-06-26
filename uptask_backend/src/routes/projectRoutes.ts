@@ -33,28 +33,28 @@ router.get('/:id',
 )
 
 
+/**Routes fro tasks*/
+// Middleware para validar que el proyecto existe antes de manejar las rutas de tareas
+router.param('projectId', validateProjectExists)
+
 router.put('/:id',
-   param('id').isMongoId().withMessage('ID no válido'),
+   param('projectId').isMongoId().withMessage('ID no válido'),
    body('projectName').notEmpty().withMessage('El nombre del proyecto es obligatorio'),
    body('clientName').notEmpty().withMessage('El nombre del cliente es obligatorio'),
    body('description').notEmpty().withMessage('La descripción del proyecto es obligatoria'),
    handleInputErrors,
+   hasAuthorization,
    ProjectController.updateProject
 )
 
 
-router.delete('/:id',
-   param('id').isMongoId().withMessage('ID no válido'),
+router.delete('/:projectId',
+   param('projectId').isMongoId().withMessage('ID no válido'),
    handleInputErrors,
+   hasAuthorization,
    ProjectController.deleteProject
 )
 
-
-
-
-/**Routes fro tasks*/
-// Middleware para validar que el proyecto existe antes de manejar las rutas de tareas
-router.param('projectId', validateProjectExists)
 
 // crear una tarea y asociarla a un proyecto
 router.post('/:projectId/tasks', 
